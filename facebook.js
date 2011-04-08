@@ -1,6 +1,19 @@
 var querystring = require('querystring');
 var https = require('https');
 
+/*
+fb object:
+
+{
+  appId : your_app_id,
+  redirectURI : the_uri_you_ask_facebook_to_redirect_to,
+  appSecrett : your_app_secret,
+  oauthHOST : 'graph.facebook.com'
+}
+*/
+
+
+//callback parameters: error, facebookUserJson
 exports.getFacebookUser = function(fb, accessToken, callback){
   
   var tokenURL = '/oauth/access_token?' +
@@ -25,12 +38,12 @@ exports.getFacebookUser = function(fb, accessToken, callback){
       var graphURL = '/me?' + facebookData;
       https.get({host: fb.oauthHOST, path: graphURL }, function(graphResponse){
         graphResponse.on('data', function(data){
-          callback(JSON.parse(data));
+          callback(null, JSON.parse(data));
         });
       });  
     });
   
   }).on('error', function(e){
-    throw {error: 'facebook fail'};
+    callback(e);
   });
 }
