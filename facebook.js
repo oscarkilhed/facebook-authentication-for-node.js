@@ -7,7 +7,7 @@ fb object:
 {
   appId : your_app_id,
   redirectURI : the_uri_you_ask_facebook_to_redirect_to,
-  appSecrett : your_app_secret,
+  appSecret : your_app_secret,
   oauthHOST : 'graph.facebook.com'
 }
 */
